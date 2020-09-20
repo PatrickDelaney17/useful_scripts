@@ -5,6 +5,8 @@ GREEN="\033[1;32m"
 NOCOLOR="\033[0m"
 
 #REF - https://codereview.stackexchange.com/questions/146896/simple-linux-upgrade-script-in-bash
+#REF - https://www.raspberrypi.org/documentation/raspbian/updating.md
+
 echo
 echo
 echo -e "let's hope this works ${GREEN}¯\_(ツ)_/¯${NOCOLOR}"
@@ -26,7 +28,7 @@ sudo apt-get update -y
 echo
 
 echo -e "step 2: ${GREEN}upgrade packages${NOCOLOR}"
-sudo apt-get upgrade -y
+sudo apt-get full-upgrade -y
 
 echo
 
