@@ -12,6 +12,10 @@ echo
 echo -e "let's hope this works ${GREEN}¯\_(ツ)_/¯${NOCOLOR}"
 echo
 
+print_msg(){
+echo -e "SKIPPED"
+}
+
 #echo -e "step 1: ${GREEN}pre-configuring packages${NOCOLOR}"
 #sudo dpkg --configure -a
 
@@ -50,15 +54,24 @@ sudo apt-get autoclean
 
 #TO Write comment in a file uncomment line below
 #echo "Temp log System rebooting -->  Today: ${d}" > templog.txt
+STR=$(pihole -up --check-only)
+SUB='Everything is up to date'
 
-#echo -e "step 6:${GREEN}Check pihole for updates${NOCOLOR}"
-#sudo pihole -up -y
+echo -e "step 8:${GREEN}Check pihole for updates${NOCOLOR}"
+if [[ "$STR" == *"$SUB"* ]]; then
+echo
+  echo -e "No Pihole updates needed"
+else
+echo
+echo -e "Updates available for install"
 
-#echo
+sudo pihole -up -y
+echo
+echo -e "${GREEN}Update Gravity and flush query log in Pihole${NOCOLOR}"
+sudo pihole -g -f
+fi
 
-#echo -e "step 9: ${GREEN}Update Gravity and flush query log in Pihole${NOCOLOR}"
-#sudo pihole -g -f
-
+echo
 
 echo
 
