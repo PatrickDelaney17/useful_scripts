@@ -1,54 +1,53 @@
 #!/bin/bash
 
-#RED="\033[1;31m"
+
 GREEN="\033[1;32m"
 NOCOLOR="\033[0m"
 
 #REF - https://codereview.stackexchange.com/questions/146896/simple-linux-upgrade-script-in-bash
 #REF - https://www.raspberrypi.org/documentation/raspbian/updating.md
 
-echo
-echo
-echo -e "let's hope this works ${GREEN}¯\_(ツ)_/¯${NOCOLOR}"
-echo
-
-print_msg(){
-echo -e "SKIPPED"
+basic_msg(){
+   for i in "$*"; do echo "$i"; done;
 }
 
-#test push
+green_msg(){
+ for i in "$*"; do echo -e "${GREEN} $i ${NOCOLOR}"; done;
+}
+red_msg()
+{
+RED="\033[1;31m"
+for i in "$*"; do echo -e "${RED} $i ${NOCOLOR}"; done;
+}
 
-#echo -e "step 1: ${GREEN}pre-configuring packages${NOCOLOR}"
-#sudo dpkg --configure -a
-
-#echo 
-
-#echo -e "step 2: ${GREEN}fix and attempt to correct a system with broken dependencies${NOCOLOR}"
-#sudo apt-get install -f
+#REF - https://codereview.stackexchange.com/questions/146896/simple-linux-upgrade-script-in-bash
+echo
+green_msg "let's hope this works \_(\`.\`)_/"
+echo
 
 echo
 
-echo -e "step 1: ${GREEN}update apt cache${NOCOLOR}"
+green_msg "step 1: update apt cache"
 sudo apt-get update -y
 
 echo
 
-echo -e "step 2: ${GREEN}upgrade packages${NOCOLOR}"
+green_msg "step 2: upgrade packages"
 sudo apt-get full-upgrade -y
 
 echo
 
-echo -e "step 3: ${GREEN}distribution upgrade${NOCOLOR}"
+green_msg "step 3: distribution upgrade"
 sudo apt-get dist-upgrade -y
 
 echo
 
-echo -e "step 4: ${GREEN}remove unused packages${NOCOLOR}"
+green_msg "step 4: remove unused packages"
 sudo apt-get --purge autoremove -y
 
 echo
 
-echo -e "step 5: ${GREEN}clean up${NOCOLOR}"
+green_msg "step 5: clean up"
 sudo apt-get autoclean
 
 #echo -e "Setting temp log before reboot..."
@@ -59,17 +58,17 @@ sudo apt-get autoclean
 STR=$(pihole -up --check-only)
 SUB='Everything is up to date'
 
-echo -e "step 8:${GREEN}Check pihole for updates${NOCOLOR}"
+green_msg "step 8:Check pihole for updates"
 if [[ "$STR" == *"$SUB"* ]]; then
 echo
-  echo -e "No Pihole updates needed"
+ basic_msg "No Pihole updates needed"
 else
 echo
-echo -e "Updates available for install"
+red_msg "Updates available for install"
 
 sudo pihole -up -y
 echo
-echo -e "${GREEN}Update Gravity and flush query log in Pihole${NOCOLOR}"
+green_msg "Update Gravity and flush query log in Pihole"
 sudo pihole -g -f
 fi
 
@@ -77,5 +76,5 @@ echo
 
 echo
 
-echo -e "step 6: ${GREEN} Rebooting Pi Server${NOCOLOR}"
+basic_msg "step 6: Rebooting Pi Server"
 sudo shutdown -r
