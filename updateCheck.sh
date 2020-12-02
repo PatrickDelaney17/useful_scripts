@@ -16,6 +16,8 @@ print_msg(){
 echo -e "SKIPPED"
 }
 
+#test push
+
 #echo -e "step 1: ${GREEN}pre-configuring packages${NOCOLOR}"
 #sudo dpkg --configure -a
 
