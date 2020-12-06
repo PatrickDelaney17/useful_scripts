@@ -22,6 +22,7 @@ for i in "$*"; do echo -e "${RED} $i ${NOCOLOR}"; done;
 
 #REF - https://codereview.stackexchange.com/questions/146896/simple-linux-upgrade-script-in-bash
 echo
+echo
 green_msg "let's hope this works \_(\`.\`)_/"
 echo
 
