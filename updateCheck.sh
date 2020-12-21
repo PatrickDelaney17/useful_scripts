@@ -20,11 +20,32 @@ RED="\033[1;31m"
 for i in "$*"; do echo -e "${RED} $i ${NOCOLOR}"; done;
 }
 
+disk_spc(){
+echo
+df -h
+echo 
+FREE=`df -k --output=avail "$PWD" | tail -n1`
+if [[ $FREE -lt 10485760 ]]; then               # 10G = 10*1024*1024k
+   #less than 10gb free
+ red_msg "|0_0| Killing the script not enough space on disk"
+ echo
+ exit 130
+else
+green_msg "^_^ Disk space looks good no action needed"
+fi;
+
+}
+
 #REF - https://codereview.stackexchange.com/questions/146896/simple-linux-upgrade-script-in-bash
 echo
 echo
 green_msg "let's hope this works \_(\`.\`)_/"
 echo
+
+echo
+basic_msg "Pre-run check...Display server disk space, kill switch will engage if space if under 10gb"
+echo
+disk_spc
 
 echo
 
@@ -74,8 +95,11 @@ sudo pihole -g -f
 fi
 
 echo
-
 echo
-
+basic_msg "Post run...display disk space"
+echo
+disk_spc
+echo 
+echo
 basic_msg "step 6: Rebooting Pi Server"
 sudo shutdown -r
