@@ -12,12 +12,12 @@ basic_msg(){
 }
 
 green_msg(){
- for i in "$*"; do echo "${GREEN} $i ${NOCOLOR}"; done;
+ for i in "$*"; do echo -e "${GREEN} $i ${NOCOLOR}"; done;
 }
 red_msg()
 {
 RED="\033[1;31m"
-for i in "$*"; do echo "${RED} $i ${NOCOLOR}"; done;
+for i in "$*"; do echo -e "${RED} $i ${NOCOLOR}"; done;
 }
 
 disk_spc(){
