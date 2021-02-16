@@ -7,6 +7,25 @@ NOCOLOR="\033[0m"
 #REF - https://codereview.stackexchange.com/questions/146896/simple-linux-upgrade-script-in-bash
 #REF - https://www.raspberrypi.org/documentation/raspbian/updating.md
 
+function show_msg(){
+	printf "Usage: $0 [options [parameters]]\n";
+	printf "\n"
+	printf "Options:\n"
+	printf "-s|--skip [skips one of the optional checks within the update check] <parameter value> , dc(disk space check), pi (pihole upgrade check), all (non-essential) \n"
+	printf "-h|--help, print help\n"
+
+	return 0;
+}
+
+while [! -z "$1" ]; do
+	if [["$1" == "--help"]] || [["$1" == "-h"]]; then
+		show_msg
+	else 
+		echo "Incorrect syntax command not found"
+		show_msg
+	fi
+
+
 basic_msg(){
    for i in "$*"; do echo "$i"; done;
 }
@@ -34,6 +53,27 @@ else
 green_msg "^_^ Disk space looks good no action needed"
 fi;
 
+}
+
+check_pihole(){
+
+	echo
+	STR=$(pihole -up --check-only)
+	SUB='Everything is up to date'
+
+	green_msg "step 8:Check pihole for updates"
+	if [[ "$STR" == *"$SUB"* ]]; then
+	echo
+	basic_msg "No Pihole updates needed"
+	else
+	echo
+	red_msg "Updates available for install"
+
+	sudo pihole -up -y
+	echo
+	green_msg "Update Gravity and flush query log in Pihole"
+	sudo pihole -g -f
+	fi
 }
 
 #REF - https://codereview.stackexchange.com/questions/146896/simple-linux-upgrade-script-in-bash
@@ -74,25 +114,21 @@ sudo apt-get autoclean
 
 #echo -e "Setting temp log before reboot..."
 #d=$(date +%Y-%m-%d)
+basic_msg "check if pihole exist on system"
+echo
+
+if [[ -d "/etc/pihole" ]]
+then
+    basic_msg "Pihole found...proceed with update check"
+	check_pihole
+	else
+	basic_msg "Pihole not found on system, moving on"
+	
+fi
 
 #TO Write comment in a file uncomment line below
 #echo "Temp log System rebooting -->  Today: ${d}" > templog.txt
-STR=$(pihole -up --check-only)
-SUB='Everything is up to date'
 
-green_msg "step 8:Check pihole for updates"
-if [[ "$STR" == *"$SUB"* ]]; then
-echo
- basic_msg "No Pihole updates needed"
-else
-echo
-red_msg "Updates available for install"
-
-sudo pihole -up -y
-echo
-green_msg "Update Gravity and flush query log in Pihole"
-sudo pihole -g -f
-fi
 
 echo
 echo
