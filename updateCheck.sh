@@ -17,15 +17,6 @@ function show_msg(){
 	return 0;
 }
 
-#while [! -z "$1" ]; do
-	#if [["$1" == "--help"]] || [["$1" == "-h"]]; then
-	#	show_msg
-	#else 
-	#	echo "Incorrect syntax command not found"
-	#	show_msg
-	#fi
-
-
 basic_msg(){
    for i in "$*"; do echo "$i"; done;
 }
@@ -40,19 +31,18 @@ for i in "$*"; do echo -e "${RED} $i ${NOCOLOR}"; done;
 }
 
 disk_spc(){
-echo
-df -h
-echo 
-FREE=`df -k --output=avail "$PWD" | tail -n1`
-if [[ $FREE -lt 10485760 ]]; then               # 10G = 10*1024*1024k
-   #less than 10gb free
- red_msg "|0_0| Killing the script not enough space on disk"
- echo
- exit 130
-else
-green_msg "^_^ Disk space looks good no action needed"
-fi;
-
+	# Total available
+	AVAIL=`df -k --total --output=avail "$PWD" | tail -n1`
+	#1 GB in block size
+	GB=2097152
+	#If we have more than a gb continue
+	if [$AVAIL -lt $GB]
+		then 
+		red_msg "|0_0| Killing the script not enough space on disk"
+		exit 130
+		else
+		green_msg "^_^ Disk space looks good no action needed"
+	fi;
 }
 
 check_pihole(){
@@ -129,12 +119,14 @@ fi
 #TO Write comment in a file uncomment line below
 #echo "Temp log System rebooting -->  Today: ${d}" > templog.txt
 
-
 echo
 echo
 basic_msg "Post run...display disk space"
+basic_msg "-----------------------------"
 echo
-disk_spc
+df -h --total /root /dev
+echo
+basic_msg "-----------------------------"
 echo 
 echo
 basic_msg "step 6: Rebooting Pi Server"
