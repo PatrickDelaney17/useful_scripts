@@ -17,13 +17,13 @@ function show_msg(){
 	return 0;
 }
 
-while [! -z "$1" ]; do
-	if [["$1" == "--help"]] || [["$1" == "-h"]]; then
-		show_msg
-	else 
-		echo "Incorrect syntax command not found"
-		show_msg
-	fi
+#while [! -z "$1" ]; do
+	#if [["$1" == "--help"]] || [["$1" == "-h"]]; then
+	#	show_msg
+	#else 
+	#	echo "Incorrect syntax command not found"
+	#	show_msg
+	#fi
 
 
 basic_msg(){
