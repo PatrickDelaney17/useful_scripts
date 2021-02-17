@@ -40,9 +40,10 @@ disk_spc(){
 		then 
 		red_msg "|0_0| Killing the script not enough space on disk"
 		exit 130
-		else
-		green_msg "^_^ Disk space looks good no action needed"
-	fi;
+		else		
+		green_msg "^_^ Disk space looks good no action needed!"
+		echo
+		fi;
 }
 
 check_pihole(){
@@ -73,7 +74,8 @@ green_msg "let's hope this works \_(\`.\`)_/"
 echo
 
 echo
-basic_msg "Pre-run check...Display server disk space, kill switch will engage if space if under 10gb"
+basic_msg "Pre-run check...Display server disk space, kill switch will engage if space if under 1gb"
+echo
 echo
 disk_spc
 
