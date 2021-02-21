@@ -7,16 +7,6 @@ NOCOLOR="\033[0m"
 #REF - https://codereview.stackexchange.com/questions/146896/simple-linux-upgrade-script-in-bash
 #REF - https://www.raspberrypi.org/documentation/raspbian/updating.md
 
-function show_msg(){
-	printf "Usage: $0 [options [parameters]]\n";
-	printf "\n"
-	printf "Options:\n"
-	printf "-s|--skip [skips one of the optional checks within the update check] <parameter value> , dc(disk space check), pi (pihole upgrade check), all (non-essential) \n"
-	printf "-h|--help, print help\n"
-
-	return 0;
-}
-
 basic_msg(){
    for i in "$*"; do echo "$i"; done;
 }
@@ -36,14 +26,14 @@ disk_spc(){
 	#1 GB in block size
 	GB=2097152
 	#If we have more than a gb continue
-	if [$AVAIL -lt $GB]
+	if [[$AVAIL -lt $GB]]
 		then 
 		red_msg "|0_0| Killing the script not enough space on disk"
 		exit 130
 		else		
 		green_msg "^_^ Disk space looks good no action needed!"
 		echo
-		fi;
+		fi
 }
 
 check_pihole(){
