@@ -26,7 +26,7 @@ disk_spc(){
 	#1 GB in block size
 	GB=2097152
 	#If we have more than a gb continue
-	if [[$AVAIL -lt $GB]]
+	if [[ $AVAIL -lt $GB ]]
 		then 
 		red_msg "|0_0| Killing the script not enough space on disk"
 		exit 130
