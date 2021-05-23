@@ -40,7 +40,7 @@ check_pihole() {
 	SUB='Everything is up to date'
 
 	green_msg "step 8:Check pihole for updates"
-	if [[ "$STR" ==*"$SUB"*]]; then
+	if [["$STR"==*"$SUB"*]]; then
 		echo
 		basic_msg "No Pihole updates needed"
 	else
