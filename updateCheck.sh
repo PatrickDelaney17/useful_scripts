@@ -13,12 +13,13 @@ basic_msg() {
 green_msg() {
 	STEP=$1
 	MSG=$2
-	if [["$STEP"==*""*]]; then
-	for i in "$*"; do echo -e "${GREEN} $i ${NOCOLOR}"; done
+	#if only one arg passed in
+	if [ -z "$MSG" ]
+  	then
+    for i in "$*"; do echo -e "${GREEN} $i ${NOCOLOR}"; done	
 	else
 	echo -e "Step $STEP: ${GREEN}${MSG}${NOCOLOR}";
-	fi
-	#for i in "$*"; do echo -e "${GREEN} $i ${NOCOLOR}"; done
+	fi	
 }
 red_msg() {
 	RED="\033[1;31m"
