@@ -64,7 +64,7 @@ check_pihole() {
 
 #REF - https://codereview.stackexchange.com/questions/146896/simple-linux-upgrade-script-in-bash
 next
-green_msg "let's hope this works \_(\`.\`)_/"
+green_msg 0 "let's hope this works \_(\`.\`)_/"
 next
 
 
