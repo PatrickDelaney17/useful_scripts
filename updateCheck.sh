@@ -13,7 +13,7 @@ basic_msg() {
 green_msg() {
 	STEP=$1
 	MSG=$2
-	echo -e "Step $STEP: ${GREEN}${MSG}${NOCOLOR}"; done
+	echo -e "Step $STEP: ${GREEN}${MSG}${NOCOLOR}";
 	#for i in "$*"; do echo -e "${GREEN} $i ${NOCOLOR}"; done
 }
 red_msg() {
