@@ -11,11 +11,19 @@ basic_msg() {
 }
 
 green_msg() {
-	for i in "$*"; do echo -e "${GREEN} $i ${NOCOLOR}"; done
+	STEP=$1
+	MSG=$2
+	echo -e "Step $STEP: ${GREEN}${MSG}${NOCOLOR}"; done
+	#for i in "$*"; do echo -e "${GREEN} $i ${NOCOLOR}"; done
 }
 red_msg() {
 	RED="\033[1;31m"
 	for i in "$*"; do echo -e "${RED} $i ${NOCOLOR}"; done
+}
+
+next(){
+echo
+echo	
 }
 
 disk_spc() {
@@ -29,7 +37,7 @@ disk_spc() {
 		exit 130
 	else
 		green_msg "^_^ Disk space looks good no action needed!"
-		echo
+		next
 	fi
 }
 
@@ -55,36 +63,33 @@ check_pihole() {
 }
 
 #REF - https://codereview.stackexchange.com/questions/146896/simple-linux-upgrade-script-in-bash
-echo
-echo
+next
 green_msg "let's hope this works \_(\`.\`)_/"
-echo
+next
 
-echo
+
 basic_msg "Pre-run check...Display server disk space, kill switch will engage if space if under 1gb"
-echo
-echo
+
+next
+
 disk_spc
 
-echo
+next
 
-green_msg "step 1: update apt cache && step 2: upgrade packages"
+green_msg 1 "update apt cache && upgrade packages"
 sudo apt-get update -y && sudo apt-get full-upgrade -y
 
-echo
+next
 
-green_msg "step 3: distribution upgrade && step 4: remove unused packages"
+green_msg 2 "Distribution upgrade && Remove unused packages"
 sudo apt-get dist-upgrade -y && sudo apt-get --purge autoremove -y
+next
 
-echo
-
-green_msg "step 5: clean up"
+green_msg 3 "run auto clean up"
 sudo apt-get autoclean
-
-#echo -e "Setting temp log before reboot..."
-#d=$(date +%Y-%m-%d)
+next
 basic_msg "check if pihole exist on system"
-echo
+next
 
 if [[ -d "/etc/pihole" ]]; then
 	basic_msg "Pihole found...proceed with update check"
@@ -97,15 +102,16 @@ fi
 #TO Write comment in a file uncomment line below
 #echo "Temp log System rebooting -->  Today: ${d}" > templog.txt
 
-echo
-echo
+next
+d=$(date +%Y-%m-%d)
 basic_msg "Post run...display disk space"
+basic_msg "-----------------------------"
+green_msg "$d"
 basic_msg "-----------------------------"
 echo
 df -h --total /root /dev
 echo
 basic_msg "-----------------------------"
-echo
-echo
-basic_msg "step 6: Rebooting Pi Server"
+next 
+basic_msg "Done - Rebooting Pi Server"
 sudo shutdown -r
