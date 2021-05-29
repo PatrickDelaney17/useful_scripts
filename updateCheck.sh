@@ -114,4 +114,5 @@ echo
 basic_msg "-----------------------------"
 next 
 basic_msg "Done - Rebooting Pi Server"
+next
 sudo shutdown -r
