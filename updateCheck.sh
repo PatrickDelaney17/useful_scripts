@@ -13,7 +13,11 @@ basic_msg() {
 green_msg() {
 	STEP=$1
 	MSG=$2
+	if [["$STEP"==*""*]]; then
+	for i in "$*"; do echo -e "${GREEN} $i ${NOCOLOR}"; done
+	else
 	echo -e "Step $STEP: ${GREEN}${MSG}${NOCOLOR}";
+	fi
 	#for i in "$*"; do echo -e "${GREEN} $i ${NOCOLOR}"; done
 }
 red_msg() {
@@ -42,12 +46,11 @@ disk_spc() {
 }
 
 check_pihole() {
-
 	echo
 	STR=$(pihole -up --check-only)
 	SUB='Everything is up to date'
 
-	green_msg "step 8:Check pihole for updates"
+	green_msg "Check pihole for updates"
 	if [["$STR"==*"$SUB"*]]; then
 		echo
 		basic_msg "No Pihole updates needed"
@@ -64,16 +67,13 @@ check_pihole() {
 
 #REF - https://codereview.stackexchange.com/questions/146896/simple-linux-upgrade-script-in-bash
 next
-green_msg 0 "let's hope this works \_(\`.\`)_/"
+green_msg "let's hope this works \_(\`.\`)_/"
 next
 
-
 basic_msg "Pre-run check...Display server disk space, kill switch will engage if space if under 1gb"
-
 next
 
 disk_spc
-
 next
 
 green_msg 1 "update apt cache && upgrade packages"
@@ -96,7 +96,6 @@ if [[ -d "/etc/pihole" ]]; then
 	check_pihole
 else
 	basic_msg "Pihole not found on system, moving on"
-
 fi
 
 #TO Write comment in a file uncomment line below
