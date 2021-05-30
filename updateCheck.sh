@@ -56,6 +56,7 @@ check_pihole() {
 	next
 	pihole -up --check-only	
 if [[ "$str1" == *"$str2"* ]]; then
+	next
 	info_msg "String compare passed"
 	next
 else
@@ -99,7 +100,8 @@ if [[ -d "/etc/pihole" ]]; then
 	check_pihole
 	next
 else
-	info_msg "Pihole not found on system, moving on"	
+	info_msg "Pihole not found on system, moving on"
+	next	
 fi
 
 #TO Write comment in a file uncomment line below
