@@ -2,6 +2,7 @@
 
 GREEN="\033[1;32m"
 NOCOLOR="\033[0m"
+CYAN="\033[1;36m"
 
 #REF - https://codereview.stackexchange.com/questions/146896/simple-linux-upgrade-script-in-bash
 #REF - https://www.raspberrypi.org/documentation/raspbian/updating.md
@@ -25,7 +26,9 @@ red_msg() {
 	RED="\033[1;31m"
 	for i in "$*"; do echo -e "${RED} $i ${NOCOLOR}"; done
 }
-
+info_msg() {	
+	for i in "$*"; do echo -e "${CYAN}[i] $i ${NOCOLOR}"; done
+}
 next(){
 echo
 echo	
@@ -46,24 +49,23 @@ disk_spc() {
 	fi
 }
 
-check_pihole() {
-	echo
-	STR=$(pihole -up --check-only)
-	SUB='Everything is up to date'
-
-	green_msg "Check pihole for updates"
-	if [["$STR"==*"$SUB"*]]; then
-		echo
-		basic_msg "No Pihole updates needed"
-	else
-		echo
-		red_msg "Updates available for install"
-
-		sudo pihole -up -y
-		echo
-		green_msg "Update Gravity and flush query log in Pihole"
-		sudo pihole -g -f
-	fi
+check_pihole() {	
+	VAR=$(pihole -up --check-only)
+	SUB='Everything is up to date!'
+	str1=${VAR##*]}		
+	next
+	pihole -up --check-only	
+if [[ "$str1" == *"$str2"* ]]; then
+	info_msg "String compare passed"
+	next
+else
+	next	
+	sudo pihole -up -y
+	next
+	info_msg "Update Gravity and flush query log in Pihole"
+	next
+	sudo pihole -g -f 
+fi
 }
 
 #REF - https://codereview.stackexchange.com/questions/146896/simple-linux-upgrade-script-in-bash
@@ -71,7 +73,7 @@ next
 green_msg "let's hope this works \_(\`.\`)_/"
 next
 
-basic_msg "Pre-run check...Display server disk space, kill switch will engage if space if under 1gb"
+info_msg "Pre-run check...Display server disk space, kill switch will engage if space if under 1gb"
 next
 
 disk_spc
@@ -89,14 +91,15 @@ next
 green_msg 3 "run auto clean up"
 sudo apt-get autoclean
 next
-basic_msg "check if pihole exist on system"
+green_msg 4 "check if pihole exist on system"
 next
 
 if [[ -d "/etc/pihole" ]]; then
-	basic_msg "Pihole found...proceed with update check"
+	info_msg "Pihole found!...proceed with update check"
 	check_pihole
+	next
 else
-	basic_msg "Pihole not found on system, moving on"
+	info_msg "Pihole not found on system, moving on"	
 fi
 
 #TO Write comment in a file uncomment line below
@@ -104,7 +107,7 @@ fi
 
 next
 d=$(date +%Y-%m-%d)
-basic_msg "Post run...display disk space"
+info_msg "Post run - display disk space"
 basic_msg "-----------------------------"
 green_msg "$d"
 basic_msg "-----------------------------"
