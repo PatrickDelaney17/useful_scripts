@@ -53,15 +53,11 @@ check_pihole() {
 	VAR=$(pihole -up --check-only)
 	SUB='Everything is up to date!'
 	str1=${VAR##*]}		
-	next
-	
+		
 if [[ "$str1" == *"$str2"* ]]; then
-	info_msg "String compare passed, display output"
-	next
 	pihole -up --check-only
 	next	
-else
-	next	
+else		
 	sudo pihole -up -y
 	next
 	info_msg "Update Gravity and flush query log in Pihole"
@@ -83,7 +79,6 @@ next
 
 green_msg 1 "update apt cache && upgrade packages"
 sudo apt-get update -y && sudo apt-get full-upgrade -y
-
 next
 
 green_msg 2 "Distribution upgrade && Remove unused packages"
