@@ -54,11 +54,12 @@ check_pihole() {
 	SUB='Everything is up to date!'
 	str1=${VAR##*]}		
 	next
-	pihole -up --check-only	
+	
 if [[ "$str1" == *"$str2"* ]]; then
+	info_msg "String compare passed, display output"
 	next
-	info_msg "String compare passed"
-	next
+	pihole -up --check-only
+	next	
 else
 	next	
 	sudo pihole -up -y
