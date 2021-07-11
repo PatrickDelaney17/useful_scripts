@@ -65,6 +65,20 @@ else
 	sudo pihole -g -f 
 fi
 }
+#determine if we need to flush the logs
+#TODO Improve logic | assumes jq is installed https://wilsonmar.github.io/jq/
+#TODO : add logic check for jq
+##TODO: determine whether to remove file or just overwrite each time
+##TODO: write actual flush method
+#TODO: Finally add method to call flush check
+pihole_flush()
+{
+
+info_msg "write domain stat info to temp file and read it for now..."
+next
+pihole -c -j > output.json
+cat output.json | jq '.'
+}
 
 #REF - https://codereview.stackexchange.com/questions/146896/simple-linux-upgrade-script-in-bash
 next
