@@ -65,18 +65,23 @@ else
 	sudo pihole -g -f 
 fi
 }
-#determine if we need to flush the logs
+
 #TODO Improve logic | assumes jq is installed https://wilsonmar.github.io/jq/
 #TODO : add logic check for jq
-##TODO: determine whether to remove file or just overwrite each time
-##TODO: write actual flush method
-#TODO: Finally add method to call flush check
+#determine if we need to flush the logs
 pihole_flush()
 {
-
 info_msg "write domain stat info to temp file and read it for now..."
 next
 pihole -c -j > output.json
+MAX=8000
+DNS_QUERIES=$(cat output.json | jq '.dns_queries_today')
+if [[ $MAX -lt $DNS_QUERIES ]]; then
+	info_msg "Flushing dns update gravity"
+	sudo pihole -g -f 
+else
+	info_msg "Flush not needed"
+fi
 cat output.json | jq '.'
 }
 
