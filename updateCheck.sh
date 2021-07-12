@@ -56,6 +56,7 @@ check_pihole() {
 		
 if [[ "$str1" == *"$str2"* ]]; then
 	pihole -up --check-only
+	pihole_flush
 	next	
 else		
 	sudo pihole -up -y
