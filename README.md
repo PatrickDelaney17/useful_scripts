@@ -1,3 +1,4 @@
+[[_TOC_]]
 # useful_scripts
 basic script storage for common use cases
 
@@ -24,6 +25,7 @@ foo@bar:~$ printf "${LightBlue}some colored text${NC}..\n"
 I love Stack Overflow
 ```
 
-
+# MongDB Setup
+[Basic Steps](https://pimylifeup.com/mongodb-raspberry-pi/#:~:text=For%20those%20who%20do%20not%20know%2C%20MongoDB%20is,tutorial%20on%20installing%20MongoDB%20on%20your%20Raspberry%20Pi.)
 
 
