@@ -78,10 +78,14 @@ MAX=8000
 DNS_QUERIES=$(cat output.json | jq '.dns_queries_today')
 if [[ $MAX -lt $DNS_QUERIES ]]; then
 	info_msg "Flushing dns update gravity"
+	cat output.json | jq '.'	
 	sudo pihole -g -f 
+	next
 else
 	info_msg "Flush not needed"
+	next
 fi
+info_msg "Output metrics"
 cat output.json | jq '.'
 }
 
