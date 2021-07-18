@@ -1,4 +1,4 @@
-{"colores":[
+{"colors":
     {   
     "color":"Blue",
     "code": "0;34"         
@@ -63,5 +63,5 @@
     "color":"Light Gray",
     "code": "0;37"         
     }
-]
+
 }
