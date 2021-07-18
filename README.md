@@ -2,9 +2,6 @@
 # useful_scripts
 basic script storage for common use cases
 
-# Git Install steps
-[Getting Started](https://projects.raspberrypi.org/en/projects/getting-started-with-git/3)
-
 # Color options for print output
 > [from overflow](https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux)
 ```
@@ -25,7 +22,13 @@ foo@bar:~$ printf "${LightBlue}some colored text${NC}..\n"
 I love Stack Overflow
 ```
 
-# MongDB Setup
-[Basic Steps](https://pimylifeup.com/mongodb-raspberry-pi/#:~:text=For%20those%20who%20do%20not%20know%2C%20MongoDB%20is,tutorial%20on%20installing%20MongoDB%20on%20your%20Raspberry%20Pi.)
+# Links
+---
+## Keep for later usage
+* [Basic Steps](https://pimylifeup.com/mongodb-raspberry-pi/#:~:text=For%20those%20who%20do%20not%20know%2C%20MongoDB%20is,tutorial%20on%20installing%20MongoDB%20on%20your%20Raspberry%20Pi.)
 
+## Learning
 
+## Tooling / Installment
+* [Git Install steps](https://projects.raspberrypi.org/en/projects/getting-started-with-git/3)
+* [install jq](https://wilsonmar.github.io/jq/) for working with `JSON`

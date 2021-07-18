@@ -1,0 +1,67 @@
+{"colores":[
+    {   
+    "color":"Blue",
+    "code": "0;34"         
+    },
+    {
+    "color":"Dark Gray",
+    "code": "1;30"         
+    },
+    {
+    "color":"Black",
+    "code": "0;30"         
+    },
+    {
+    "color":"Red",
+    "code": "0;31"         
+    },
+    {
+    "color":"Green",
+    "code": "0;32"         
+    },
+    {
+    "color":"Brown/Orange",
+    "code": "0;33"         
+    },
+    {
+    "color":"Cyan",
+    "code": "0;36"         
+    },
+    {
+    "color":"Purple",
+    "code": "0;35"         
+    },
+    {
+    "color":"Yellow",
+    "code": "1;33"         
+    },
+    {
+    "color":"White",
+    "code": "1;37"         
+    },
+    {
+    "color":"Light Red",
+    "code": "1;31"         
+    },
+    {
+    "color":"Light Green",
+    "code": "1;32"         
+    },
+    {
+    "color":"Light Blue",
+    "code": "1;34"         
+    },
+    {
+    "color":"Light Purple",
+    "code": "1;35"         
+    },
+    {
+    "color":"Light Cyan",
+    "code": "1;36"         
+    },
+    {
+    "color":"Light Gray",
+    "code": "0;37"         
+    }
+]
+}

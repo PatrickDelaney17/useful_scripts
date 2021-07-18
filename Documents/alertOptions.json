@@ -1,0 +1,17 @@
+{
+    "info":[{        
+            "setCode": "i",
+            "fullName": "information",
+            "usage": "informational messages"
+        }],
+     "success":[{        
+            "setCode": "s",
+            "fullName": "successful",
+            "usage": "good new messages"
+        }],
+    "warn":[{        
+            "setCode": "w",
+            "fullName": "information",
+            "usage": "informational messages"
+        }]
+}
