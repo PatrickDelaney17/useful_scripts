@@ -75,9 +75,10 @@ fi
 #determine if we need to flush the logs
 pihole_flush()
 {
-info_msg "just writing domain stats info to temp file (output.json) and read it for now..."
+next
 pihole -c -j > output.json
 MAX=8000
+info_msg "just writing domain stats info to temp file (output.json) and read it for now..."
 info_msg "Flush if query count above $MAX"
 DNS_QUERIES=$(cat output.json | jq '.dns_queries_today')
 if [[ $MAX -lt $DNS_QUERIES ]]; then
