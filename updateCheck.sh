@@ -72,8 +72,7 @@ fi
 #determine if we need to flush the logs
 pihole_flush()
 {
-info_msg "write domain stat info to temp file and read it for now..."
-next
+info_msg "just writing domain stats info to temp file (output.json) and read it for now..."
 pihole -c -j > output.json
 MAX=8000
 DNS_QUERIES=$(cat output.json | jq '.dns_queries_today')
@@ -84,9 +83,8 @@ if [[ $MAX -lt $DNS_QUERIES ]]; then
 	next
 else
 	info_msg "Flush not needed"
-	next
 fi
-info_msg "Output metrics"
+info_msg "Display DNS Stats"
 cat output.json | jq '.'
 }
 
@@ -129,7 +127,7 @@ fi
 
 next
 d=$(date +%Y-%m-%d)
-info_msg "Post run - display disk space"
+info_msg "Post run - Display Disk Space"
 basic_msg "-----------------------------"
 green_msg "$d"
 basic_msg "-----------------------------"
