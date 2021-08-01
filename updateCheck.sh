@@ -78,6 +78,7 @@ pihole_flush()
 info_msg "just writing domain stats info to temp file (output.json) and read it for now..."
 pihole -c -j > output.json
 MAX=8000
+info_msg "Flush if query count above $MAX"
 DNS_QUERIES=$(cat output.json | jq '.dns_queries_today')
 if [[ $MAX -lt $DNS_QUERIES ]]; then
 	info_msg "Flushing dns update gravity"
@@ -127,8 +128,6 @@ fi
 
 #TO Write comment in a file uncomment line below
 #echo "Temp log System rebooting -->  Today: ${d}" > templog.txt
-
-next
 d=$(date +%Y-%m-%d)
 info_msg "Post run - Display Disk Space"
 basic_msg "-----------------------------"
