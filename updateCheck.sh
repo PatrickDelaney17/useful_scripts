@@ -34,6 +34,8 @@ echo
 echo	
 }
 
+#TODO: Add Version in script and version check pull
+
 disk_spc() {
 	# Total available
 	AVAIL=$(df -k --total --output=avail "$PWD" | tail -n1)
