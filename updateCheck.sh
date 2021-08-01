@@ -53,9 +53,12 @@ check_pihole() {
 	VAR=$(pihole -up --check-only)
 	SUB='Everything is up to date!'
 	str1=${VAR##*]}		
-		
+	
 if [[ "$str1" == *"$str2"* ]]; then
 	pihole -up --check-only
+	# Add check if not null before pihole flush method
+	#checkForJq=$(jq -Version)
+	#
 	pihole_flush
 	next	
 else		
