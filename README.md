@@ -34,7 +34,7 @@ I love Stack Overflow
 * [install jq](https://wilsonmar.github.io/jq/) for working with `JSON`
 
 ## Other Refs
-> used with updateCheck.sh
+> used with `updateCheck.sh` script
 ```shell
 #REF - https://codereview.stackexchange.com/questions/146896/simple-linux-upgrade-script-in-bash
 #REF - https://www.raspberrypi.org/documentation/raspbian/updating.md
