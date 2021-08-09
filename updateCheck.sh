@@ -4,10 +4,6 @@ GREEN="\033[1;32m"
 NOCOLOR="\033[0m"
 CYAN="\033[1;36m"
 
-#REF - https://codereview.stackexchange.com/questions/146896/simple-linux-upgrade-script-in-bash
-#REF - https://www.raspberrypi.org/documentation/raspbian/updating.md
-#REF - assumes jq is installed https://wilsonmar.github.io/jq/
-
 basic_msg() {
 	for i in "$*"; do echo "$i"; done
 }
