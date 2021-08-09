@@ -4,9 +4,6 @@ GREEN="\033[1;32m"
 NOCOLOR="\033[0m"
 CYAN="\033[1;36m"
 
-#REF - https://codereview.stackexchange.com/questions/146896/simple-linux-upgrade-script-in-bash
-#REF - https://www.raspberrypi.org/documentation/raspbian/updating.md
-
 basic_msg() {
 	for i in "$*"; do echo "$i"; done
 }
@@ -51,30 +48,28 @@ disk_spc() {
 	fi
 }
 
+
+# Check if updates are available
 check_pihole() {	
 	VAR=$(pihole -up --check-only)
-	SUB='Everything is up to date!'
-	str1=${VAR##*]}		
-	
-if [[ "$str1" == *"$str2"* ]]; then
-	pihole -up --check-only
-	# Add check if not null before pihole flush method
-	#checkForJq=$(jq -Version)
-	#
-	pihole_flush
-	next	
-else		
+	SUB='available'
+
+if [[ "$STR" == *"$SUB"* ]]; then
+  	echo "It's there."
 	sudo pihole -up -y
 	next
 	info_msg "Update Gravity and flush query log in Pihole"
 	next
 	sudo pihole -g -f 
+else
+	pihole -up --check-only
+	pihole_flush
+	next
 fi
 }
 
-#TODO Improve logic | assumes jq is installed https://wilsonmar.github.io/jq/
-#TODO : add logic check for jq
-#determine if we need to flush the logs
+#TODO Improve logic 
+# Determine if we need to flush the logs
 pihole_flush()
 {
 next
@@ -95,7 +90,7 @@ info_msg "Display DNS Stats"
 cat output.json | jq '.'
 }
 
-#REF - https://codereview.stackexchange.com/questions/146896/simple-linux-upgrade-script-in-bash
+
 next
 green_msg "let's hope this works \_(\`.\`)_/"
 next
@@ -103,6 +98,7 @@ next
 info_msg "Pre-run check...Display server disk space, kill switch will engage if space if under 1gb"
 next
 
+info_msg "Running on $hostname"
 disk_spc
 next
 
@@ -129,9 +125,10 @@ else
 	next	
 fi
 
-#TO Write comment in a file uncomment line below
 #echo "Temp log System rebooting -->  Today: ${d}" > templog.txt
 d=$(date +%Y-%m-%d)
+#TODO: convert to json
+##=('{"Today":"'$(date +%Y-%m-%d)'"}') --> output todays date within the brackets
 info_msg "Post run - Display Disk Space"
 basic_msg "-----------------------------"
 green_msg "$d"
@@ -141,6 +138,6 @@ df -h --total /root /dev
 echo
 basic_msg "-----------------------------"
 next 
-basic_msg "Done - Rebooting Pi Server"
+info_msg "Done - Rebooting Pi Server"
 next
 sudo shutdown -r

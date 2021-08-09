@@ -32,3 +32,11 @@ I love Stack Overflow
 ## Tooling / Installment
 * [Git Install steps](https://projects.raspberrypi.org/en/projects/getting-started-with-git/3)
 * [install jq](https://wilsonmar.github.io/jq/) for working with `JSON`
+
+## Other Refs
+> used with `updateCheck.sh` script
+```shell
+#REF - https://codereview.stackexchange.com/questions/146896/simple-linux-upgrade-script-in-bash
+#REF - https://www.raspberrypi.org/documentation/raspbian/updating.md
+#REF - assumes jq is installed https://wilsonmar.github.io/jq/
+```
