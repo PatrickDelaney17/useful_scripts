@@ -55,7 +55,9 @@ check_pihole() {
 	SUB='available'
 
 
+
 if [[ "$VAR" == *"$SUB"* ]]; then  	
+
 	sudo pihole -up -y
 	next
 	info_msg "Now update gravity and flush query log in Pihole"
