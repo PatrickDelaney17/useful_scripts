@@ -54,6 +54,7 @@ check_pihole() {
 	VAR=$(pihole -up --check-only)
 	SUB='available'
 
+
 if [[ "$STR" == *"$SUB"* ]]; then  	
 	sudo pihole -up -y
 	next
@@ -97,6 +98,7 @@ next
 info_msg "Pre-run check...Display server disk space, kill switch will engage if space if under 1gb"
 next
 
+info_msg "Running on $hostname"
 disk_spc
 next
 
