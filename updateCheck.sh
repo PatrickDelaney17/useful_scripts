@@ -54,8 +54,8 @@ check_pihole() {
 	VAR=$(pihole -up --check-only)
 	SUB='available'
 
-if [[ "$STR" == *"$SUB"* ]]; then
-  	echo "It's there."
+
+if [[ "$STR" == *"$SUB"* ]]; then  	
 	sudo pihole -up -y
 	next
 	info_msg "Update Gravity and flush query log in Pihole"
@@ -80,7 +80,7 @@ info_msg "Flush if query count above $MAX"
 DNS_QUERIES=$(cat output.json | jq '.dns_queries_today')
 if [[ $MAX -lt $DNS_QUERIES ]]; then
 	info_msg "Flushing dns update gravity"
-	cat output.json | jq '.'	
+	cat output.json | jq '.'
 	sudo pihole -g -f 
 	next
 else
