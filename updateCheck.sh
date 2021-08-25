@@ -48,6 +48,22 @@ disk_spc() {
 	fi
 }
 
+verify_dependency(){
+HasJQ=$(command jq -Version)
+info_msg "verify dependencies"
+# check if null or empty, if variable has a length = 0 if jq is missing then prompt to install
+if [ -z "$HasJQ" ]
+then
+red_msg "JQ dependency missing!"
+next
+sudo apt install -y jq
+else
+green_msg "JQ Version Installed: $HasJQ"
+fi
+}
+
+
+
 
 # Check if updates are available
 check_pihole() {	
@@ -74,6 +90,7 @@ fi
 # Determine if we need to flush the logs
 pihole_flush()
 {
+
 next
 pihole -c -j > output.json
 MAX=8000
