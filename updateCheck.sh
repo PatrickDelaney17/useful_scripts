@@ -58,6 +58,8 @@ red_msg "JQ dependency missing!"
 info_msg "Attempting to install JQ package"
 next
 sudo apt install -y jq
+next
+green_msg "JQ installment attempt done."
 else
 green_msg "JQ Version Installed: $HasJQ"
 fi
@@ -93,8 +95,7 @@ if [[ "$VAR" == *"$SUB"* ]]; then
 	next
 	sudo pihole -g -f 
 else
-	pihole -up --check-only
-	pihole_flush
+	pihole -up --check-only	
 	next
 fi
 }
@@ -137,8 +138,6 @@ green_msg 1 "update apt cache && upgrade packages"
 sudo apt-get update -y && sudo apt-get full-upgrade -y
 next
 
-verify_dependency
-next
 
 green_msg 2 "Distribution upgrade && Remove unused packages"
 sudo apt-get dist-upgrade -y && sudo apt-get --purge autoremove -y
@@ -150,10 +149,14 @@ next
 green_msg 4 "check if pihole exist on system"
 next
 
+#TODO Move into method
 if [[ -d "/etc/pihole" ]]; then
 	info_msg "Pihole found!...proceed with update check"
 	check_pihole
 	next
+	verify_dependency	
+	next
+	pihole_flush
 else
 	info_msg "Pihole not found on system, moving on"
 	next	
