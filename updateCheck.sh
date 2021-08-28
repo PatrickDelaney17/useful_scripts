@@ -55,6 +55,7 @@ info_msg "verify dependencies"
 if [ -z "$HasJQ" ]
 then
 red_msg "JQ dependency missing!"
+info_msg "Attempting to install JQ package"
 next
 sudo apt install -y jq
 else
@@ -62,6 +63,18 @@ green_msg "JQ Version Installed: $HasJQ"
 fi
 }
 
+confim_install(){
+HasJQ=$(command jq -Version)
+info_msg "verify dependencies"
+# check if null or empty, if variable has a length = 0 if jq is missing then prompt to install
+if [ -z "$HasJQ" ]
+then
+red_msg "|0_0| Unable to verify JQ installed script cancelled"
+		exit 130
+else
+green_msg "JQ Version Installed: $HasJQ"
+fi
+}
 
 
 
@@ -90,7 +103,7 @@ fi
 # Determine if we need to flush the logs
 pihole_flush()
 {
-
+confim_install
 next
 pihole -c -j > output.json
 MAX=8000
@@ -122,6 +135,9 @@ next
 
 green_msg 1 "update apt cache && upgrade packages"
 sudo apt-get update -y && sudo apt-get full-upgrade -y
+next
+
+verify_dependency
 next
 
 green_msg 2 "Distribution upgrade && Remove unused packages"
