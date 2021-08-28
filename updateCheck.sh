@@ -58,8 +58,10 @@ red_msg "JQ dependency missing!"
 info_msg "Attempting to install JQ package"
 next
 sudo apt install -y jq
+
 next
 green_msg "JQ installment attempt done."
+
 else
 green_msg "JQ Version Installed: $HasJQ"
 fi
@@ -136,6 +138,10 @@ next
 
 green_msg 1 "update apt cache && upgrade packages"
 sudo apt-get update -y && sudo apt-get full-upgrade -y
+next
+
+
+verify_dependency
 next
 
 
