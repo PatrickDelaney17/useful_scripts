@@ -149,9 +149,6 @@ disk_spc
 next
 
 check_git
-
-next
-git pull
 next
 
 
