@@ -81,13 +81,10 @@ fi
 }
 
 
-
 # Check if updates are available
 check_pihole() {	
 	VAR=$(pihole -up --check-only)
 	SUB='available'
-
-
 
 if [[ "$VAR" == *"$SUB"* ]]; then  	
 
@@ -125,6 +122,21 @@ info_msg "Display DNS Stats"
 cat output.json | jq '.'
 }
 
+check_git() {	
+	info_msg "checking if latest script has been pulled"
+	next
+	VAR=$(git pull)
+	SUB='Already up to date.'
+
+if [[ "$VAR" != "$SUB" ]]; then
+	git pull
+	info_msg "Latest changes pulled stop script and rerun with latest changes"
+	exit 130 && bash updateCheck.sh
+else 
+	green_msg "Script already up to date!"
+fi
+
+}
 
 next
 green_msg "let's hope this works \_(\`.\`)_/"
@@ -136,9 +148,8 @@ next
 disk_spc
 next
 
-info_msg "checking if latest script has been pulled"
-next
-basic_msg "git status -uno"
+check_git
+
 next
 git pull
 next
