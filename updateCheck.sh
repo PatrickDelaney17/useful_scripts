@@ -136,6 +136,16 @@ next
 disk_spc
 next
 
+info_msg "checking if latest script has been pulled"
+next
+basic_msg "git status -uno"
+next
+git pull
+next
+
+
+
+
 green_msg 1 "update apt cache && upgrade packages"
 sudo apt-get update -y && sudo apt-get full-upgrade -y
 next
