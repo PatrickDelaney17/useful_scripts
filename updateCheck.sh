@@ -58,10 +58,10 @@ red_msg "JQ dependency missing!"
 info_msg "Attempting to install JQ package"
 next
 sudo apt install -y jq
-
 next
 green_msg "JQ installment attempt done."
-
+next
+confim_install
 else
 green_msg "JQ Version Installed: $HasJQ"
 fi
@@ -69,7 +69,7 @@ fi
 
 confim_install(){
 HasJQ=$(command jq -Version)
-info_msg "verify dependencies"
+info_msg "verify installment"
 # check if null or empty, if variable has a length = 0 if jq is missing then prompt to install
 if [ -z "$HasJQ" ]
 then
@@ -103,8 +103,6 @@ fi
 # Determine if we need to flush the logs
 pihole_flush()
 {
-confim_install
-next
 pihole -c -j > output.json
 MAX=8000
 info_msg "just writing domain stats info to temp file (output.json) and read it for now..."
@@ -151,17 +149,9 @@ next
 check_git
 next
 
-
-
-
 green_msg 1 "update apt cache && upgrade packages"
 sudo apt-get update -y && sudo apt-get full-upgrade -y
 next
-
-
-verify_dependency
-next
-
 
 green_msg 2 "Distribution upgrade && Remove unused packages"
 sudo apt-get dist-upgrade -y && sudo apt-get --purge autoremove -y
@@ -175,10 +165,12 @@ next
 
 #TODO Move into method
 if [[ -d "/etc/pihole" ]]; then
-	info_msg "Pihole found!...proceed with update check"
-	check_pihole
+	info_msg "Pihole found!...now verify dependency before proceeding with update check"
 	next
-	verify_dependency	
+	verify_dependency
+	next	
+	check_pihole
+	
 	next
 	pihole_flush
 else
