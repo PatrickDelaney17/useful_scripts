@@ -70,6 +70,7 @@ fi
 confim_install(){
 HasJQ=$(command jq -Version)
 info_msg "verify installment"
+next
 # check if null or empty, if variable has a length = 0 if jq is missing then prompt to install
 if [ -z "$HasJQ" ]
 then
@@ -125,7 +126,7 @@ check_git() {
 	next
 	VAR=$(git pull)
 	SUB='Already up to date.'
-
+#TODO Does not restart
 if [[ "$VAR" != "$SUB" ]]; then
 	git pull
 	info_msg "Latest changes pulled stop script and rerun with latest changes"
