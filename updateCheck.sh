@@ -129,8 +129,8 @@ check_git() {
 #TODO Does not restart
 if [[ "$VAR" != "$SUB" ]]; then
 	git pull
-	info_msg "Latest changes pulled stop script and rerun with latest changes"
-	exit 130 && bash updateCheck.sh
+	info_msg "Latest changes needed to be pulled, script cancelled, re-run script to use latest version."
+	exit 130
 else 
 	green_msg "Script already up to date!"
 fi
