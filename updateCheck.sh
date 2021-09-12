@@ -140,13 +140,12 @@ fi
 next
 green_msg "let's hope this works \_(\`.\`)_/"
 next
-
+ip=$(hostname -I)
+basic_msg "-----------------------------"
+basic_msg "Server hostname: $HOSTNAME"
+basic_msg "IP: $ip"
+basic_msg "-----------------------------"
 info_msg "Pre-run check...Display server disk space, kill switch will engage if space if under 1gb"
-next
-basic_msg "-----------------------------"
-info_msg "Server hostname: $HOSTNAME"
-basic_msg "-----------------------------"
-next
 disk_spc
 next
 
