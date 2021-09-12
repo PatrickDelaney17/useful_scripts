@@ -145,10 +145,10 @@ basic_msg "-----------------------------"
 basic_msg "Server hostname: $HOSTNAME"
 basic_msg "IP: $ip"
 basic_msg "-----------------------------"
+next
 info_msg "Pre-run check...Display server disk space, kill switch will engage if space if under 1gb"
 disk_spc
 next
-
 check_git
 next
 
