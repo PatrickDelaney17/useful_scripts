@@ -84,6 +84,7 @@ fi
 
 # Check if updates are available
 check_pihole() {	
+	
 	VAR=$(pihole -up --check-only)
 	SUB='available'
 
@@ -105,7 +106,7 @@ fi
 pihole_flush()
 {
 pihole -c -j > output.json
-MAX=8000
+MAX=10000
 info_msg "just writing domain stats info to temp file (output.json) and read it for now..."
 info_msg "Flush if query count above $MAX"
 DNS_QUERIES=$(cat output.json | jq '.dns_queries_today')
@@ -137,6 +138,15 @@ fi
 
 }
 
+pihole_mgmt()
+{
+	verify_dependency
+	next	
+	check_pihole	
+	next
+	pihole_flush
+}
+
 next
 green_msg "let's hope this works \_(\`.\`)_/"
 next
@@ -163,23 +173,9 @@ next
 green_msg 3 "run auto clean up"
 sudo apt-get autoclean
 next
-green_msg 4 "check if pihole exist on system"
+green_msg 4 "run pihole management methods"
 next
-
-#TODO Move into method
-if [[ -d "/etc/pihole" ]]; then
-	info_msg "Pihole found!...now verify dependency before proceeding with update check"
-	next
-	verify_dependency
-	next	
-	check_pihole
-	
-	next
-	pihole_flush
-else
-	info_msg "Pihole not found on system, moving on"
-	next	
-fi
+pihole_mgmt
 
 #echo "Temp log System rebooting -->  Today: ${d}" > templog.txt
 d=$(date +%Y-%m-%d)
