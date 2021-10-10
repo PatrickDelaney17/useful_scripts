@@ -4,6 +4,7 @@ GREEN="\033[1;32m"
 NOCOLOR="\033[0m"
 CYAN="\033[1;36m"
 
+
 basic_msg() {
 	for i in "$*"; do echo "$i"; done
 }
@@ -105,14 +106,15 @@ fi
 # Determine if we need to flush the logs
 pihole_flush()
 {
-pihole -c -j > output.json
+#TODO make log path param option 
+pihole -c -j > ~/Desktop/output.json
 MAX=10000
 info_msg "just writing domain stats info to temp file (output.json) and read it for now..."
 info_msg "Flush if query count above $MAX"
 DNS_QUERIES=$(cat output.json | jq '.dns_queries_today')
 if [[ $MAX -lt $DNS_QUERIES ]]; then
 	info_msg "Flushing dns update gravity"
-	cat output.json | jq '.'
+	cat ~/Desktop/output.json | jq '.'
 	sudo pihole -g -f 
 	next
 else
