@@ -108,7 +108,7 @@ pihole_flush()
 {
 #TODO make log path param option 
 pihole -c -j > ~/Desktop/output.json
-MAX=10000
+MAX=14000
 info_msg "just writing domain stats info to temp file (output.json) and read it for now..."
 info_msg "Flush if query count above $MAX"
 DNS_QUERIES=$(cat output.json | jq '.dns_queries_today')
