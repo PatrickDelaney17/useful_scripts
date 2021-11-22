@@ -3,7 +3,8 @@
 GREEN="\033[1;32m"
 NOCOLOR="\033[0m"
 CYAN="\033[1;36m"
-
+d=$(date +%Y-%m-%d)
+ip=$(hostname -I | cut -d' ' -f1)
 
 basic_msg() {
 	for i in "$*"; do echo "$i"; done
@@ -152,10 +153,11 @@ pihole_mgmt()
 next
 green_msg "let's hope this works \_(\`.\`)_/"
 next
-ip=$(hostname -I)
+
 basic_msg "-----------------------------"
 basic_msg "Server hostname: $HOSTNAME"
 basic_msg "IP: $ip"
+green_msg "Date: $d"
 basic_msg "-----------------------------"
 next
 info_msg "Pre-run check...Display server disk space, kill switch will engage if space if under 1gb"
@@ -179,13 +181,13 @@ green_msg 4 "run pihole management methods"
 next
 pihole_mgmt
 
-#echo "Temp log System rebooting -->  Today: ${d}" > templog.txt
-d=$(date +%Y-%m-%d)
 #TODO: convert to json
 ##=('{"Today":"'$(date +%Y-%m-%d)'"}') --> output todays date within the brackets
 info_msg "Post run - Display Disk Space"
 basic_msg "-----------------------------"
-green_msg "$d"
+basic_msg "Server hostname: $HOSTNAME"
+basic_msg "IP: $ip"
+green_msg "Date: $d"
 basic_msg "-----------------------------"
 echo
 df -h --total /root /dev

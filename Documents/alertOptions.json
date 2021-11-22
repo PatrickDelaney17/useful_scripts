@@ -11,7 +11,7 @@
         }],
     "warn":[{        
             "setCode": "w",
-            "fullName": "information",
-            "usage": "informational messages"
+            "fullName": "warning",
+            "usage": "warning messages"
         }]
 }
