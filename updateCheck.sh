@@ -16,7 +16,7 @@ green_msg() {
 	#if only one arg passed in
 	if [ -z "$MSG" ]
   	then
-    for i in "$*"; do echo -e "${GREEN} $i ${NOCOLOR}"; done	
+    for i in "$*"; do echo -e "${GREEN}$i ${NOCOLOR}"; done	
 	else
 	echo -e "Step $STEP: ${GREEN}${MSG}${NOCOLOR}";
 	fi	
