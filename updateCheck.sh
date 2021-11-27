@@ -5,6 +5,7 @@ NOCOLOR="\033[0m"
 CYAN="\033[1;36m"
 d=$(date +%Y-%m-%d)
 ip=$(hostname -I | cut -d' ' -f1)
+logPath=~/$laLogPath
 
 basic_msg() {
 	for i in "$*"; do echo "$i"; done
@@ -115,20 +116,20 @@ fi
 pihole_flush()
 {
 #TODO make log path param option 
-pihole -c -j > ~/Documents/lazyadmin/dns_output.json
+pihole -c -j > $logPath/dns_output.json
 MAX=12000
 info_msg "Flush if query count above $MAX"
-DNS_QUERIES=$(cat dns_output.json | jq '.dns_queries_today')
+DNS_QUERIES=$(cat $logPath/dns_output.json | jq '.dns_queries_today')
 if [[ $MAX -lt $DNS_QUERIES ]]; then
 	info_msg "Flushing dns update gravity"
-	cat ~/~/Documents/lazyadmin/dns_output.json | jq '.'
+	cat $logPath/dns_output.json | jq '.'
 	sudo pihole -g -f 
 	next
 else
 	info_msg "Flush not needed"
 fi
 info_msg "Display DNS Stats"
-cat dns_output.json | jq '.'
+cat $logPath/dns_output.json | jq '.'
 }
 
 check_git() {	
