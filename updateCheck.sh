@@ -115,20 +115,20 @@ fi
 pihole_flush()
 {
 #TODO make log path param option 
-pihole -c -j > ~/Desktop/output.json
+pihole -c -j > ~/Documents/lazyadmin/dns_output.json
 MAX=12000
 info_msg "Flush if query count above $MAX"
-DNS_QUERIES=$(cat output.json | jq '.dns_queries_today')
+DNS_QUERIES=$(cat dns_output.json | jq '.dns_queries_today')
 if [[ $MAX -lt $DNS_QUERIES ]]; then
 	info_msg "Flushing dns update gravity"
-	cat ~/Desktop/output.json | jq '.'
+	cat ~/~/Documents/lazyadmin/dns_output.json | jq '.'
 	sudo pihole -g -f 
 	next
 else
 	info_msg "Flush not needed"
 fi
 info_msg "Display DNS Stats"
-cat output.json | jq '.'
+cat dns_output.json | jq '.'
 }
 
 check_git() {	
