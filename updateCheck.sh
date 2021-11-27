@@ -82,7 +82,14 @@ else
 green_msg "JQ Version Installed: $HasJQ"
 fi
 }
-
+show_core_banner(){
+basic_msg "-----------------------------"
+basic_msg "Server hostname: $HOSTNAME"
+basic_msg "IP: $ip"
+green_msg "Date: $d"
+basic_msg "-----------------------------"
+next
+}
 
 # Check if updates are available
 check_pihole() {	
@@ -109,7 +116,7 @@ pihole_flush()
 {
 #TODO make log path param option 
 pihole -c -j > ~/Desktop/output.json
-MAX=10000
+MAX=12000
 info_msg "Flush if query count above $MAX"
 DNS_QUERIES=$(cat output.json | jq '.dns_queries_today')
 if [[ $MAX -lt $DNS_QUERIES ]]; then
@@ -153,12 +160,7 @@ next
 green_msg "let's hope this works \_(\`.\`)_/"
 next
 
-basic_msg "-----------------------------"
-basic_msg "Server hostname: $HOSTNAME"
-basic_msg "IP: $ip"
-green_msg "Date: $d"
-basic_msg "-----------------------------"
-next
+show_core_banner
 info_msg "Pre-run check...Display server disk space, kill switch will engage if space if under 1gb"
 disk_spc
 next
@@ -180,15 +182,9 @@ green_msg 4 "run pihole management methods"
 next
 pihole_mgmt
 
-#TODO: convert to json
-##=('{"Today":"'$(date +%Y-%m-%d)'"}') --> output todays date within the brackets
+
 info_msg "Post run - Display Disk Space"
-basic_msg "-----------------------------"
-basic_msg "Server hostname: $HOSTNAME"
-basic_msg "IP: $ip"
-green_msg "Date: $d"
-basic_msg "-----------------------------"
-echo
+show_core_banner
 df -h --total /root /dev
 echo
 basic_msg "-----------------------------"
