@@ -9,7 +9,7 @@ ip=$(hostname -I | cut -d' ' -f1)
 basic_msg() {
 	for i in "$*"; do echo "$i"; done
 }
-
+#TEST
 green_msg() {
 	STEP=$1
 	MSG=$2
