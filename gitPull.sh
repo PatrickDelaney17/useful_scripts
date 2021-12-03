@@ -10,7 +10,7 @@ latestVersionHash=$latestVersioninfo | jq '.commit'
 if [ -z "$localVersion" ]
 then
 git pull
-echo $localVersioninfo > $laLogPath/versionLog.json
+echo $localVersioninfo > $logPath/versionLog.json
 else [[ "$localVersion" != "$latestVersionHash" ]]
 git pull
 fi
