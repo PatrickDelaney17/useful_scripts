@@ -1,4 +1,17 @@
 #!/bin/bash
 
-#Lazy way to automatically pull in new changes without breaking main script via cron
+logPath=~/$laLogPath
+
+localVersion=$(cat  $logPath/$localVersion.json | jq '.commit')
+latestVersioninfo=$(git log -1 --pretty=format:'{%n  "commit": "%H",%n  "author": "%an <%ae>",%n  "date": "%ad",%n  "message": "%f"%n}')
+latestVersionHash=$latestVersioninfo | jq '.commit'
+
+
+if [ -z "$localVersion" ]
+then
 git pull
+echo $localVersioninfo > $logPath/localVersion.json
+else [[ "$localVersion" != "$latestVersionHash" ]]
+git pull
+fi
+
