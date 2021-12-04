@@ -1,5 +1,6 @@
 #!/bin/bash
 
+start=`date +%s`
 GREEN="\033[1;32m"
 NOCOLOR="\033[0m"
 CYAN="\033[1;36m"
@@ -190,6 +191,11 @@ df -h --total /root /dev
 echo
 basic_msg "-----------------------------"
 next 
-info_msg "Done - Rebooting Pi Server"
+end=`date +%s`
+runtime=$((end-start))
+info_msg "Done - Script took $runtime seconds to complete"
+info_msg "Rebooting Pi Server"
+
+
 next
 sudo shutdown -r
