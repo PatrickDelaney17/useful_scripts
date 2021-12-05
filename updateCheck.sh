@@ -38,20 +38,20 @@ echo
 calc_runtime()
 {
   STARTTIME=$1
-  ENDTIME=$2  
+  ENDTIME=$2 
+  let DURATION=${ENDTIME}-${STARTTIME} 
   local SECONDS H M S MM H_TAG M_TAG S_TAG
-  SECONDS=${1:-0}
+  SECONDS=$DURATION
   let S=${SECONDS}%60
   let MM=${SECONDS}/60 # Total number of minutes
   let M=${MM}%60
   let H=${MM}/60
+  info_msg "Script duration info"
+  next
    # Display "01h02m03s" format
    [ "$H" -gt "0" ] && printf "%02d%s" $H "h"
-   [ "$M" -gt "0" ] && printf "%02d%s" $M "m"
+   [ "$M" -gt "0" ] && printf "%02d%s" $M "m"    
    printf "%02d%s\n" $S "s"
-   let DURATION=${ENDTIME}-${STARTTIME}
-
-   info_msg "Script duration: $DURATION"
 }
 
 disk_spc() {
