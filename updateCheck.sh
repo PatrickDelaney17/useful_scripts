@@ -35,7 +35,24 @@ echo
 echo	
 }
 
-#TODO: Add Version in script and version check pull
+calc_runtime()
+{
+  STARTTIME=$1
+  ENDTIME=$2  
+  local SECONDS H M S MM H_TAG M_TAG S_TAG
+  SECONDS=${1:-0}
+  let S=${SECONDS}%60
+  let MM=${SECONDS}/60 # Total number of minutes
+  let M=${MM}%60
+  let H=${MM}/60
+   # Display "01h02m03s" format
+   [ "$H" -gt "0" ] && printf "%02d%s" $H "h"
+   [ "$M" -gt "0" ] && printf "%02d%s" $M "m"
+   printf "%02d%s\n" $S "s"
+   let DURATION=${ENDTIME}-${STARTTIME}
+
+   info_msg "Script duration: $DURATION"
+}
 
 disk_spc() {
 	# Total available
@@ -192,8 +209,8 @@ echo
 basic_msg "-----------------------------"
 next 
 end=`date +%s`
-runtime=$((end-start))
-info_msg "Done - Script took $runtime seconds to complete"
+calc_runtime $start $end
+next
 info_msg "Rebooting Pi Server"
 
 
