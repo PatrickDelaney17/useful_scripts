@@ -40,3 +40,8 @@ I love Stack Overflow
 #REF - https://www.raspberrypi.org/documentation/raspbian/updating.md
 #REF - assumes jq is installed https://wilsonmar.github.io/jq/
 ```
+uri='https://github.com/PatrickDelaney17'
+
+proj='useful_scripts'
+
+curl -i "$uri"

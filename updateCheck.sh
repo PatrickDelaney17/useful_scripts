@@ -35,6 +35,16 @@ echo
 echo	
 }
 
+log()
+{
+            "date": "$d",
+            "step": "$1",
+            "status": "$2",
+            "message": "$3",            
+            "scriptversion":"hash",
+            "related-doc": "$4"
+}
+
 calc_runtime()
 {
   STARTTIME=$1
@@ -201,6 +211,18 @@ green_msg 4 "run pihole management methods"
 next
 pihole_mgmt
 
+sun()
+{
+NC='\033[0m'
+SUN='\033[0;33m'
+BL='\033[1;34m'
+SPACE='	                     '
+SPACE2='                        '
+SPACE3='                       '
+SPACE4='                      '
+
+echo -e "${SPACE}${SUN}00000000000${NC}${SPACE} ^^ ^^" && echo -e "${SPACE2}${SUN}00000000000000${NC}${SPACE2}^^" && echo -e "${SPACE3}${SUN}0000000000000000${NC}${SPACE3}" && echo -e "${SPACE4}${SUN}000000000000000000${NC}${SPACE4} " && echo -e "${BL}~         ~~   ~  ~       ~~~~~~~~~~~~~~~~~~~~ ~       ~~     ~~ ~ \n  ~~~~~~     ~~~~~  ~~~  ~~     ~~~~~~~~~~~~~~~ ~~~~~~ ~~~ ~ \n   ~~~~~ ~~ ~  ~~~~~  ~~~~  ~~~~~~~~~~ ~~~~~ ~~ ~ ~ 	~\n  ~~~ ~~ ~~~ ~ ~~ ~~ ~  ~~~~~  ~~  ~~     ~~~ ~~~ ~~ ~ ~${NC}"
+}
 
 info_msg "Post run - Display Disk Space"
 show_core_banner
@@ -211,8 +233,10 @@ next
 end=`date +%s`
 calc_runtime $start $end
 next
-info_msg "Rebooting Pi Server"
 
+info_msg "Rebooting Pi Server"
+next
+sun
 
 next
 sudo shutdown -r
