@@ -216,7 +216,7 @@ sun()
 NC='\033[0m'
 SUN='\033[0;33m'
 BL='\033[1;34m'
-SPACE='	                     '
+SPACE='	                  '
 SPACE2='                        '
 SPACE3='                       '
 SPACE4='                      '
