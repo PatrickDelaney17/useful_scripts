@@ -7,6 +7,7 @@ CYAN="\033[1;36m"
 d=$(date +%Y-%m-%d)
 ip=$(hostname -I | cut -d' ' -f1)
 logPath=~/$laLogPath
+localVersion=$(cat  $logPath/versionLog.json | jq '.commit')
 
 basic_msg() {
 	for i in "$*"; do echo "$i"; done
@@ -35,15 +36,22 @@ echo
 echo	
 }
 
+#Eventually will be used to create json logs
+# to call method
+# log 0 "passed" "my log message"
 log()
 {
-            "date": "$d",
-            "step": "$1",
-            "status": "$2",
-            "message": "$3",            
-            "scriptversion":"hash",
-            "related-doc": "$4"
+step=$1
+status=$2
+lmsg=$3
+
+date=$(date)
+ver="${localVersion:1:-1}"
+
+JSON_FMT='{"step":"%s","status":"%s","message":"%s", "date":"%s", "version":"%s"}\n'
+printf "$JSON_FMT" "$step" "$status" "$lmsg" "$date" "$ver"
 }
+
 
 calc_runtime()
 {
@@ -62,6 +70,7 @@ calc_runtime()
    [ "$H" -gt "0" ] && printf "%02d%s" $H "h"
    [ "$M" -gt "0" ] && printf "%02d%s" $M "m"    
    printf "%02d%s\n" $S "s"
+   
 }
 
 disk_spc() {
@@ -166,7 +175,8 @@ check_git() {
 	VAR=$(git pull)
 	SUB='Already up to date.'
 #TODO Does not restart
-if [[ "$VAR" != "$SUB" ]]; then
+if [[ "$VAR" != "$SUB" ]]; then	
+	git reset --hard HEAD 
 	git pull
 	info_msg "Latest changes needed to be pulled, script cancelled, re-run script to use latest version."
 	exit 130
