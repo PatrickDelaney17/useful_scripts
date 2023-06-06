@@ -13,7 +13,7 @@ git pull -b master
 echo $latestVersioninfo > $logPath/versionLog.json
 else [[ "$localVersion" != "$latestVersionHash" ]]
 git reset --hard HEAD
-git pull
+git pull --no-rebase
 echo $latestVersioninfo > $logPath/versionLog.json
 fi
 
